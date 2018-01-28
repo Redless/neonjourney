@@ -1,5 +1,6 @@
 require("camera")
 require("card")
+require("cleanup")
 require("mainsquare")
 require("matrix")
 
@@ -14,7 +15,7 @@ function love.load()
   seastArrow = love.graphics.newImage("assets/seast.png")
   swestArrow = love.graphics.newImage("assets/swest.png")
   calibrateWindow()
-  hand = {card({"N","E","S","S"}),card({"S"}),card({"E"}),card({"W"})}
+  hand = {card({"N","E","S","S"}),card({"dS"}),card({"E"}),card({"W"})}
   bank = {card({"E"}),card({"N"}),card({"E","W"}),card({"E"})}
   setupHandandBank()
   waitTimer = 0
@@ -54,10 +55,17 @@ function love.update()
     updateCardPosition(hand[i])
     updateCardPosition(bank[i])
   end
+  for i = 1,table.getn(discard) do
+    updateCardPosition(discard[i])
+  end
+  if isStill() and canSlide then
+    if not (matrix[mainsquare.x/10][mainsquare.y/10] == 0) then
+      sicom(matrix[mainsquare.x/10][mainsquare.y/10])()
+      matrix[mainsquare.x/10][mainsquare.y/10] = 0 --here's where we'll actually have the durability decrease
+    end
+  end
   if isStill() and (waitTimer > 0) then waitTimer = waitTimer - 1 end
-  print(mode, mode == EXECUTING, waitTimer, waitTimer == 0, ((mode == EXECUTING) and (waitTimer == 0)))
   if ((mode == EXECUTING) and (waitTimer == 0)) then
-    print("hello")
     executeNext()
   end
 end
@@ -67,19 +75,19 @@ function love.resize(w, h)
 end
 
 function love.keypressed(key)
-  if key == "q" then
+  if ((key == "q") and (mode == NORMAL)) then
     selectCard(1)
   end
-  if key == "w" then
+  if ((key == "w") and (mode == NORMAL)) then
     selectCard(2)
   end
-  if key == "e" then
+  if ((key == "e") and (mode == NORMAL)) then
     selectCard(3)
   end
-  if key == "r" then
+  if ((key == "r") and (mode == NORMAL)) then
     selectCard(4)
   end
-  if key == "space" then
+  if ((key == "space") and (mode == NORMAL)) then
     executeAll()
   end
 end

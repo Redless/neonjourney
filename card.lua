@@ -12,7 +12,7 @@ commandOn = 1
 function card(text)
   outCard = {text = text}
   outCard.x = -5
-  outCard.y = 10
+  outCard.y = 10.3
   outCard.xv = 0
   outCard.yv = 0
   outCard.xa = 0
@@ -24,12 +24,21 @@ function card(text)
   return outCard
 end
 
+function generateNewCard()
+  return card({"N","E"})
+end
+
 function setupHandandBank()
   for i = 1,4 do
     dropCard(hand[i],.7+2.2*(i-1),12.5)
-  end
-  for i = 1,4 do
     dropCard(bank[i],.7+2.2*(i-1),10.3)
+  end
+  for i = 1,table.getn(discard) do
+    dropCard(discard[i],12,12.5)
+  end
+  for i = 1,table.getn(deck) do
+    deck[i].x = -2
+    deck[i].y = 12
   end
 end
 
@@ -68,38 +77,47 @@ function drawCard(cardToDraw)
   rectangle("fill",cardToDraw.x+.1,cardToDraw.y+.1,1.8,1.8)
   love.graphics.setColor(200,200,215)
   if table.getn(cardToDraw.text) == 1 then
+    love.graphics.setColor(sigcol(cardToDraw.text[1]))
     if cardToDraw.active[1] then
       drawImage(sigim(cardToDraw.text[1]),cardToDraw.x+.2,cardToDraw.y+.2,1.6,1.6)
     end
   else
     for i = 1,table.getn(cardToDraw.text) do
       if cardToDraw.active[i] then
+        love.graphics.setColor(sigcol(cardToDraw.text[i]))
         drawImage(ssigim(cardToDraw.text[i]),cardToDraw.x+.2+math.fmod(i+1,2)*.9,cardToDraw.y+.2+math.floor((i-1)/2)*.9,.7,.7)
       end
     end
   end
 end
 
+function sigcol(symbol)
+  if ((symbol == "dS") or (symbol == "dW") or (symbol == "dE") or (symbol == "dN")) then
+    return 100, 250, 215
+  end
+  return 200,200,200
+end
+
 function sigim(symbol)
-  if symbol == "N" then
+  if ((symbol == "N") or (symbol == "dN")) then
     return northArrow
-  elseif symbol == "S" then
+  elseif ((symbol == "S") or (symbol == "dS")) then
     return southArrow
-  elseif symbol == "E" then
+  elseif ((symbol == "E") or (symbol == "dE")) then
     return eastArrow
-  elseif symbol == "W" then
+  elseif ((symbol == "W") or (symbol == "dW")) then
     return westArrow
   end
 end
 
 function ssigim(symbol)
-  if symbol == "N" then
+  if ((symbol == "N") or (symbol == "dN")) then
     return snorthArrow
-  elseif symbol == "S" then
+  elseif ((symbol == "S") or (symbol == "dS")) then
     return ssouthArrow
-  elseif symbol == "E" then
+  elseif ((symbol == "E") or (symbol == "dE")) then
     return seastArrow
-  elseif symbol == "W" then
+  elseif ((symbol == "W") or (symbol == "dW")) then
     return swestArrow
   end
 end
@@ -120,6 +138,16 @@ function sicom(symbol)
   elseif symbol == "W" then
     return west
   end
+  if symbol == "dN" then
+    return dropNorth
+  elseif symbol == "dS" then
+    return dropSouth
+  elseif symbol == "dE" then
+    return dropEast
+  elseif symbol == "dW" then
+    return dropWest
+  end
+  return function() end
 end
 
 function executeNext()
@@ -144,7 +172,7 @@ function executeNext()
     end
   end
   if (cardOn == 5) then
-    mode = RESHUFFLE
+    cleanup()
   end
 end
 

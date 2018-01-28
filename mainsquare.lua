@@ -20,6 +20,7 @@ function north()
   if isHospitable(mainsquare.x/10,mainsquare.y/10-1) then
     score = score+1
     mainsquare.yv = mainsquare.yv - 10
+    canSlide = true
   end
 end
 
@@ -27,6 +28,7 @@ function south()
   if isHospitable(mainsquare.x/10,mainsquare.y/10+1) then
     score = score+1
     mainsquare.yv = mainsquare.yv + 10
+    canSlide = true
   end
 end
 
@@ -34,6 +36,7 @@ function east()
   if isHospitable(mainsquare.x/10+1,mainsquare.y/10) then
     score = score+1
     mainsquare.xv = mainsquare.xv + 10
+    canSlide = true
   end
 end
 
@@ -41,5 +44,6 @@ function west()
   if isHospitable(mainsquare.x/10-1,mainsquare.y/10) then
     score = score+1
     mainsquare.xv = mainsquare.xv - 10
+    canSlide = true
   end
 end

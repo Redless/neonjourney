@@ -8,8 +8,5 @@ function love.conf(t)
 	t.window.height = 750
 	t.window.fullscreen = false
 	t.window.resizable = true
-
-	-- For Windows debugging
-	--t.window.icon = 'assets/placedbear.png'
 	t.console = true
 end

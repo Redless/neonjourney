@@ -1,9 +1,10 @@
 matrix = {
-{{},{},{},{},{}},
-{{},{},{},{},{}},
-{{},{},{},{},{}},
-{{},{},{},{},{}},
-{{},{},{},{},{}}}
+{0,0,0,0,0},
+{0,0,0,0,0},
+{0,0,0,0,0},
+{0,0,0,0,0},
+{0,0,0,0,0},
+}
 
 function drawOutline()
   love.graphics.setColor(255,255,255)
@@ -14,4 +15,24 @@ end
 
 function isHospitable(x,y)
   return matrix[x] and matrix[x][y]
+end
+
+function dropEast()
+  matrix[mainsquare.x/10][mainsquare.y/10] = "E"
+  canSlide = false
+end
+
+function dropWest()
+  matrix[mainsquare.x/10][mainsquare.y/10] = "W"
+  canSlide = false
+end
+
+function dropSouth()
+  matrix[mainsquare.x/10][mainsquare.y/10] = "S"
+  canSlide = false
+end
+
+function dropNorth()
+  matrix[mainsquare.x/10][mainsquare.y/10] = "N"
+  canSlide = false
 end
