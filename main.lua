@@ -4,15 +4,21 @@ require("mainsquare")
 require("matrix")
 
 function love.load()
+  love.graphics.setDefaultFilter("nearest","nearest")
   northArrow = love.graphics.newImage("assets/north.png")
   southArrow = love.graphics.newImage("assets/south.png")
   eastArrow = love.graphics.newImage("assets/east.png")
   westArrow = love.graphics.newImage("assets/west.png")
+  snorthArrow = love.graphics.newImage("assets/snorth.png")
+  ssouthArrow = love.graphics.newImage("assets/ssouth.png")
+  seastArrow = love.graphics.newImage("assets/seast.png")
+  swestArrow = love.graphics.newImage("assets/swest.png")
   calibrateWindow()
-  hand = {card({"N"}),card({"S"}),card({"E"}),card({"W"})}
-  for i = 1,4 do
-    dropCard(hand[i],.7+2.2*(i-1),12.5)
-  end
+  hand = {card({"N","E","S","S"}),card({"S"}),card({"E"}),card({"W"})}
+  bank = {card({"E"}),card({"N"}),card({"E","W"}),card({"E"})}
+  setupHandandBank()
+  waitTimer = 0
+  mode = NORMAL
 end
 
 function love.draw()
@@ -21,6 +27,9 @@ function love.draw()
   drawDeck()
   for i =1,4 do
     drawCard(hand[i])
+  end
+  for i =1,4 do
+    drawCard(bank[i])
   end
 end
 
@@ -43,6 +52,13 @@ function love.update()
   end
   for i = 1,4 do
     updateCardPosition(hand[i])
+    updateCardPosition(bank[i])
+  end
+  if isStill() and (waitTimer > 0) then waitTimer = waitTimer - 1 end
+  print(mode, mode == EXECUTING, waitTimer, waitTimer == 0, ((mode == EXECUTING) and (waitTimer == 0)))
+  if ((mode == EXECUTING) and (waitTimer == 0)) then
+    print("hello")
+    executeNext()
   end
 end
 
@@ -51,16 +67,19 @@ function love.resize(w, h)
 end
 
 function love.keypressed(key)
-  if key == "s" then
-    south()
+  if key == "q" then
+    selectCard(1)
   end
   if key == "w" then
-    north()
+    selectCard(2)
   end
-  if key == "a" then
-    west()
+  if key == "e" then
+    selectCard(3)
   end
-  if key == "d" then
-    east()
+  if key == "r" then
+    selectCard(4)
+  end
+  if key == "space" then
+    executeAll()
   end
 end
