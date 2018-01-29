@@ -1,0 +1,13 @@
+to do:
+
+menus
+score display
+card generation
+random generation (start of game)
+sound effects
+music
+
+later:
+tutorial
+ranking
+highscore

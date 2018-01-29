@@ -27,7 +27,7 @@ function love.load()
   sdoubleWest = love.graphics.newImage("assets/sdwest.png")
   calibrateWindow()
   hand = {card({"N","E","S","S"}),card({"dS"}),card({"E"}),card({"W"})}
-  bank = {card({"E"}),card({"NN"}),card({"E","W"}),card({"F"})}
+  bank = {card({"E"}),card({"NN"}),card({"EE","W"}),card({"F"})}
   setupHandandBank()
   waitTimer = 0
   fiximageTimer = 0
