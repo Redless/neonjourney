@@ -14,11 +14,23 @@ function love.load()
   ssouthArrow = love.graphics.newImage("assets/ssouth.png")
   seastArrow = love.graphics.newImage("assets/seast.png")
   swestArrow = love.graphics.newImage("assets/swest.png")
+  blockedSpace = love.graphics.newImage("assets/X.png")
+  fixer = love.graphics.newImage("assets/fixer.png")
+  sfixer = love.graphics.newImage("assets/sfixer.png")
+  doubleNorth = love.graphics.newImage("assets/dnorth.png")
+  doubleEast = love.graphics.newImage("assets/dsouth.png")
+  doubleSouth = love.graphics.newImage("assets/deast.png")
+  doubleWest = love.graphics.newImage("assets/dwest.png")
+  sdoubleNorth = love.graphics.newImage("assets/sdnorth.png")
+  sdoubleEast = love.graphics.newImage("assets/sdsouth.png")
+  sdoubleSouth = love.graphics.newImage("assets/sdeast.png")
+  sdoubleWest = love.graphics.newImage("assets/sdwest.png")
   calibrateWindow()
   hand = {card({"N","E","S","S"}),card({"dS"}),card({"E"}),card({"W"})}
-  bank = {card({"E"}),card({"N"}),card({"E","W"}),card({"E"})}
+  bank = {card({"E"}),card({"NN"}),card({"E","W"}),card({"F"})}
   setupHandandBank()
   waitTimer = 0
+  fiximageTimer = 0
   mode = NORMAL
 end
 
@@ -45,6 +57,7 @@ function love.draw()
   for i =1,table.getn(discard) do
     drawCard(discard[i])
   end
+  drawFixer()
 end
 
 function love.update()
@@ -76,11 +89,22 @@ function love.update()
   if isStill() and canSlide then
     if not (matrix[mainsquare.x/10][mainsquare.y/10] == 0) then
       sicom(matrix[mainsquare.x/10][mainsquare.y/10])()
-      matrix[mainsquare.x/10][mainsquare.y/10] = 0 --here's where we'll actually have the durability decrease
+      if (matrix[mainsquare.x/10][mainsquare.y/10] == "gW") then
+        matrix[mainsquare.x/10][mainsquare.y/10] = "W"
+      elseif (matrix[mainsquare.x/10][mainsquare.y/10] == "gN") then
+        matrix[mainsquare.x/10][mainsquare.y/10] = "N"
+      elseif (matrix[mainsquare.x/10][mainsquare.y/10] == "gS") then
+        matrix[mainsquare.x/10][mainsquare.y/10] = "S"
+      elseif (matrix[mainsquare.x/10][mainsquare.y/10] == "gE") then
+        matrix[mainsquare.x/10][mainsquare.y/10] = "E"
+      else
+        matrix[mainsquare.x/10][mainsquare.y/10] = 0
+      end
       waitTimer = 5
     end
   end
   if isStill() and (waitTimer > 0) then waitTimer = waitTimer - 1 end
+  if fiximageTimer > 0 then fiximageTimer = fiximageTimer -1 end
   if ((mode == EXECUTING) and (waitTimer == 0)) then
     executeNext()
   end

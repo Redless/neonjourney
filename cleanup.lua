@@ -12,7 +12,7 @@ function cleanup()
   end
   table.insert(bank,1,generateNewCard())
   hand = {}
-  waitTimer = 50
+  waitTimer = 20
   mode = RESHUFFLE
   setupHandandBank()
 end

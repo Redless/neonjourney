@@ -94,33 +94,69 @@ function drawCard(cardToDraw)
 end
 
 function sigcol(symbol)
-  if ((symbol == "dS") or (symbol == "dW") or (symbol == "dE") or (symbol == "dN")) then
+  if ((symbol == "dS") or (symbol == "dW") or (symbol == "dE") or (symbol == "dN") or (symbol == "dN")) then
     return 100, 250, 215
+  end
+  if ((symbol == "xS") or (symbol == "xW") or (symbol == "xN") or (symbol == "xE") or (symbol == "dX")) then
+    return 250, 100, 215
+  end
+  if (symbol == "F") then
+    return 230, 230, 150
+  end
+  if ((symbol == "dgN") or (symbol == "dgS") or (symbol == "dgW") or (symbol == "dgE")) then
+    return 230,230,150
   end
   return 200,200,200
 end
 
 function sigim(symbol)
-  if ((symbol == "N") or (symbol == "dN")) then
+  if ((symbol == "N") or (symbol == "dN") or (symbol == "xN") or (symbol == "gN")) then
     return northArrow
-  elseif ((symbol == "S") or (symbol == "dS")) then
+  elseif ((symbol == "S") or (symbol == "dS") or (symbol == "xS") or (symbol == "gS")) then
     return southArrow
-  elseif ((symbol == "E") or (symbol == "dE")) then
+  elseif ((symbol == "E") or (symbol == "dE") or (symbol == "xE") or (symbol == "gE")) then
     return eastArrow
-  elseif ((symbol == "W") or (symbol == "dW")) then
+  elseif ((symbol == "W") or (symbol == "dW") or (symbol == "xW") or (symbol == "gW")) then
     return westArrow
+  end
+  if (symbol == "NN") then
+    return doubleNorth
+  elseif (symbol == "SS") then
+    return doubleSouth
+  elseif (symbol == "EE") then
+    return doubleEast
+  elseif (symbol == "WW") then
+    return doubleWest
+  end
+  if (symbol == "X") then
+    return blockedSpace
+  end
+  if (symbol == "F") then
+    return fixer
   end
 end
 
 function ssigim(symbol)
-  if ((symbol == "N") or (symbol == "dN")) then
+  if ((symbol == "N") or (symbol == "dN") or (symbol == "xN")) then
     return snorthArrow
-  elseif ((symbol == "S") or (symbol == "dS")) then
+  elseif ((symbol == "S") or (symbol == "dS") or (symbol == "xS")) then
     return ssouthArrow
-  elseif ((symbol == "E") or (symbol == "dE")) then
+  elseif ((symbol == "E") or (symbol == "dE") or (symbol == "xE")) then
     return seastArrow
-  elseif ((symbol == "W") or (symbol == "dW")) then
+  elseif ((symbol == "W") or (symbol == "dW") or (symbol == "xW")) then
     return swestArrow
+  end
+  if (symbol == "NN") then
+    return sdoubleNorth
+  elseif (symbol == "SS") then
+    return sdoubleSouth
+  elseif (symbol == "EE") then
+    return sdoubleEast
+  elseif (symbol == "WW") then
+    return sdoubleWest
+  end
+  if (symbol == "F") then
+    return sfixer
   end
 end
 
@@ -140,6 +176,24 @@ function sicom(symbol)
   elseif symbol == "W" then
     return west
   end
+  if symbol == "gN" then
+    return north
+  elseif symbol == "gS" then
+    return south
+  elseif symbol == "gE" then
+    return east
+  elseif symbol == "gW" then
+    return west
+  end
+  if symbol == "NN" then
+    return function() north() north() end
+  elseif symbol == "SS" then
+    return function() south() south() end
+  elseif symbol == "EE" then
+    return function() east() east() end
+  elseif symbol == "WW" then
+    return function() west() west() end
+  end
   if symbol == "dN" then
     return dropNorth
   elseif symbol == "dS" then
@@ -148,6 +202,18 @@ function sicom(symbol)
     return dropEast
   elseif symbol == "dW" then
     return dropWest
+  end
+  if symbol == "xN" then
+    return xNorth
+  elseif symbol == "xS" then
+    return xSouth
+  elseif symbol == "xE" then
+    return xEast
+  elseif symbol == "xW" then
+    return xWest
+  end
+  if symbol == "F" then
+    return fixtech
   end
   return function() end
 end
