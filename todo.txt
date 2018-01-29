@@ -1,11 +1,10 @@
 to do:
 
-menus
-score display
+important: get krungthep (or another) font when internet comes back on
+score display (FFF forward font)
 card generation
 random generation (start of game)
 sound effects
-music
 
 later:
 tutorial

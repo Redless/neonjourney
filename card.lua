@@ -186,13 +186,17 @@ function sicom(symbol)
     return west
   end
   if symbol == "NN" then
-    return function() north() north() end
+    return function() north()
+      if isHospitable(mainsquare.x/10,mainsquare.y/10-2) then north() end end
   elseif symbol == "SS" then
-    return function() south() south() end
+    return function() south()
+      if isHospitable(mainsquare.x/10,mainsquare.y/10+2) then south() end end
   elseif symbol == "EE" then
-    return function() east() east() end
+    return function() east()
+      if isHospitable(mainsquare.x/10+2,mainsquare.y/10) then east() end end
   elseif symbol == "WW" then
-    return function() west() west() end
+    return function() west()
+      if isHospitable(mainsquare.x/10-2,mainsquare.y/10) then west() end end
   end
   if symbol == "dN" then
     return dropNorth

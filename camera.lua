@@ -17,18 +17,10 @@ end
 According to that source, it was written by "Taehl". Thanks, Taehl!
 ]]
 
-function rectangle(mode, x, y, width, height)
-  love.graphics.rectangle(mode, moveside+(x/9*scale), movedown+(y/9*scale), width/9*scale, height/9*scale)
-end
-
-function drawImage(image, x, y, width, height)
-	love.graphics.draw(image, moveside+(x/9*scale), movedown+(y/9*scale), 0, width/9*scale/image:getWidth(), height/9*scale/image:getWidth())
-end
-
 screenratio = 10/15
 
 function drawImage(image, x, y, width, height)
-	love.graphics.draw(image, moveside+(x/15*scale), movedown+(y/15*scale), 0, width/15*scale/image:getWidth(), height/15*scale/image:getWidth())
+	love.graphics.draw(image, moveside+(x/15*scale), movedown+(y/15*scale), 0, width/15*scale/image:getWidth(), height/15*scale/image:getHeight())
 end
 
 function rectangle(mode, x, y, width, height)

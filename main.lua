@@ -3,8 +3,10 @@ require("card")
 require("cleanup")
 require("mainsquare")
 require("matrix")
+require("menu")
 
 function love.load()
+  menubg = love.graphics.newImage("assets/neonjourneylogo.png")
   love.graphics.setDefaultFilter("nearest","nearest")
   northArrow = love.graphics.newImage("assets/north.png")
   southArrow = love.graphics.newImage("assets/south.png")
@@ -25,8 +27,15 @@ function love.load()
   sdoubleEast = love.graphics.newImage("assets/sdsouth.png")
   sdoubleSouth = love.graphics.newImage("assets/sdeast.png")
   sdoubleWest = love.graphics.newImage("assets/sdwest.png")
+  digits = {}
+  for i=0,9 do
+    table.insert(digits,love.graphics.newImage("assets/"..i..".png"))
+  end
+  bgm = love.audio.newSource("assets/day 27.mp3")
+  bgm:play()
+
   calibrateWindow()
-  hand = {card({"N","E","S","S"}),card({"dS"}),card({"E"}),card({"W"})}
+  hand = {card({"N","NN"}),card({"NN"}),card({"E"}),card({"W"})}
   bank = {card({"E"}),card({"NN"}),card({"EE","W"}),card({"F"})}
   setupHandandBank()
   waitTimer = 0
@@ -35,6 +44,10 @@ function love.load()
 end
 
 function love.draw()
+  if mode == MENU then
+    drawMenu()
+    return
+  end
   drawOutline()
   for i =1,5 do
     for j =1,5 do
@@ -58,6 +71,11 @@ function love.draw()
     drawCard(discard[i])
   end
   drawFixer()
+  love.graphics.setColor(0, 0, 0)
+	love.graphics.rectangle("fill", 0, 0, love.graphics.getWidth(), movedown)
+	love.graphics.rectangle("fill", 0, 0, moveside, love.graphics.getHeight())
+	love.graphics.rectangle("fill", love.graphics.getWidth()-moveside, 0, moveside, love.graphics.getHeight())
+	love.graphics.rectangle("fill", 0, love.graphics.getHeight()-movedown, love.graphics.getWidth(), movedown)
 end
 
 function love.update()
@@ -124,6 +142,9 @@ function love.update()
     indexSelected = nil
     setupHandandBank()
   end
+  if bgm:tell() > 222.7 then
+    bgm:seek(23.05)
+  end
 end
 
 function love.resize(w, h)
@@ -131,6 +152,10 @@ function love.resize(w, h)
 end
 
 function love.keypressed(key)
+  if mode == MENU then
+    handlePressInMenu(key)
+    return
+  end
   if ((key == "q") and (mode == NORMAL)) then
     selectCard(1)
   end

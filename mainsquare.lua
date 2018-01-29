@@ -12,8 +12,11 @@ function isStill()
 end
 
 function drawMainSquare()
-  love.graphics.setColor(200, 215, 200, 200)
+  love.graphics.setColor(200, 215, 200, 100)
   rectangle("fill",(mainsquare.x/10-1)*8/5+1,(mainsquare.y/10-1)*8/5+1,8/5,8/5)
+  love.graphics.setColor(200, 215, 200)
+  drawImage(digits[math.fmod(math.floor(score/10),10)+1],(mainsquare.x/10-1)*8/5+1,(mainsquare.y/10-1)*8/5+1,4/5-1/8,8/5)
+  drawImage(digits[math.fmod(score,10)+1],(mainsquare.x/10-.5)*8/5+1+1/8,(mainsquare.y/10-1)*8/5+1,4/5-1/8,8/5)
 end
 
 function north()
