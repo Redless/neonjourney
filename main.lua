@@ -24,13 +24,26 @@ end
 
 function love.draw()
   drawOutline()
+  for i =1,5 do
+    for j =1,5 do
+      drawTile(i,j)
+    end
+  end
   drawMainSquare()
   drawDeck()
-  for i =1,4 do
-    drawCard(hand[i])
+  if not (mode == RESHUFFLE) then
+    for i =1,4 do
+      drawCard(hand[i])
+    end
   end
   for i =1,4 do
     drawCard(bank[i])
+  end
+  for i =1,table.getn(deck) do
+    drawCard(deck[i])
+  end
+  for i =1,table.getn(discard) do
+    drawCard(discard[i])
   end
 end
 
@@ -52,7 +65,9 @@ function love.update()
     mainsquare.yv = mainsquare.yv + 1
   end
   for i = 1,4 do
-    updateCardPosition(hand[i])
+    if not (mode == RESHUFFLE) then
+      updateCardPosition(hand[i])
+    end
     updateCardPosition(bank[i])
   end
   for i = 1,table.getn(discard) do
@@ -62,11 +77,28 @@ function love.update()
     if not (matrix[mainsquare.x/10][mainsquare.y/10] == 0) then
       sicom(matrix[mainsquare.x/10][mainsquare.y/10])()
       matrix[mainsquare.x/10][mainsquare.y/10] = 0 --here's where we'll actually have the durability decrease
+      waitTimer = 5
     end
   end
   if isStill() and (waitTimer > 0) then waitTimer = waitTimer - 1 end
   if ((mode == EXECUTING) and (waitTimer == 0)) then
     executeNext()
+  end
+  if ((mode == RESHUFFLE) and (waitTimer == 0)) then
+    for i = 1,4 do
+      if (table.getn(deck) == 0) then
+        reshuffleIntoDeck()
+      end
+      table.insert(hand,table.remove(deck,love.math.random(table.getn(deck))))
+      hand[i].active = {}
+      for j =1,table.getn(hand[i].text) do
+        table.insert(hand[i].active,true)
+      end
+    end
+
+    mode = NORMAL
+    indexSelected = nil
+    setupHandandBank()
   end
 end
 

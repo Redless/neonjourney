@@ -30,7 +30,9 @@ end
 
 function setupHandandBank()
   for i = 1,4 do
-    dropCard(hand[i],.7+2.2*(i-1),12.5)
+    if not (mode == RESHUFFLE) then
+      dropCard(hand[i],.7+2.2*(i-1),12.5)
+    end
     dropCard(bank[i],.7+2.2*(i-1),10.3)
   end
   for i = 1,table.getn(discard) do

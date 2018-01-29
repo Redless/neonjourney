@@ -2,9 +2,16 @@ matrix = {
 {0,0,0,0,0},
 {0,0,0,0,0},
 {0,0,0,0,0},
-{0,0,0,0,0},
+{0,0,0,"N",0},
 {0,0,0,0,0},
 }
+
+function drawTile(x,y)
+  if not (matrix[x][y] == 0) then
+    love.graphics.setColor(sigcol("d"..matrix[x][y]))
+    drawImage(sigim(matrix[x][y]),(x-1)*8/5+1,(y-1)*8/5+1,1.6,1.6)
+  end
+end
 
 function drawOutline()
   love.graphics.setColor(255,255,255)

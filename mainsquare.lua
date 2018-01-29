@@ -12,7 +12,7 @@ function isStill()
 end
 
 function drawMainSquare()
-  love.graphics.setColor(200, 215, 200)
+  love.graphics.setColor(200, 215, 200, 200)
   rectangle("fill",(mainsquare.x/10-1)*8/5+1,(mainsquare.y/10-1)*8/5+1,8/5,8/5)
 end
 

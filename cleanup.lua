@@ -12,25 +12,17 @@ function cleanup()
   end
   table.insert(bank,1,generateNewCard())
   hand = {}
-
-  for i = 1,4 do
-    if (table.getn(deck) == 0) then
-      reshuffleIntoDeck()
-    end
-    table.insert(hand,table.remove(deck,love.math.random(table.getn(deck))))
-    hand[i].active = {}
-    for j =1,table.getn(hand[i].text) do
-      table.insert(hand[i].active,true)
-    end
-  end
-
+  waitTimer = 50
+  mode = RESHUFFLE
   setupHandandBank()
-  mode = NORMAL
-  indexSelected = nil
 end
 
 function reshuffleIntoDeck()
   for i = 1,table.getn(discard) do
     table.insert(deck,table.remove(discard,love.math.random(table.getn(discard))))
+  end
+  for i = 1,table.getn(deck) do
+    deck[i].x = -5
+    deck[i].y = 12.5
   end
 end
