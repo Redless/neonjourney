@@ -1,12 +1,23 @@
 to do:
 
-important: get krungthep (or another) font when internet comes back on
-score display (FFF forward font)
+menuscreen
 card generation
 random generation (start of game)
-sound effects
+sound effects (maybe?)
+average score
+timer
+card trashing in different phases
 
 later:
 tutorial
 ranking
 highscore
+
+
+
+values
+move:2  30
+drop:2  20
+double:3  20
+block:-1  20
+fix:4  10

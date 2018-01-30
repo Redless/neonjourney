@@ -93,3 +93,7 @@ function drawFixer()
   love.graphics.setColor(230,230,150,fiximageTimer/20*255)
   rectangle("fill",(mainsquare.x/10-2)*8/5+1,(mainsquare.y/10-2)*8/5+1,24/5,24/5)
 end
+
+function drawTimer()
+  
+end

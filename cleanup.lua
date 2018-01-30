@@ -1,4 +1,5 @@
 function cleanup()
+  turnCounter = turnCounter + 1
   table.insert(deck,hand[indexSelected])
   table.insert(discard,table.remove(bank,indexSelected))
   for i = 1,4 do
@@ -25,4 +26,8 @@ function reshuffleIntoDeck()
     deck[i].x = -5
     deck[i].y = 12.5
   end
+end
+
+function finishGame()
+  --called when the game is over
 end

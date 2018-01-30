@@ -5,6 +5,8 @@ NORMAL = 1
 MENU = 2
 EXECUTING = 3
 RESHUFFLE = 4
+TUTORIAL = 5
+CREDITS = 6
 
 cardOn = 1
 commandOn = 1
@@ -186,17 +188,25 @@ function sicom(symbol)
     return west
   end
   if symbol == "NN" then
-    return function() north()
-      if isHospitable(mainsquare.x/10,mainsquare.y/10-2) then north() end end
+    return function()
+      if isHospitable(mainsquare.x/10,mainsquare.y/10-2) then score = score+2
+      mainsquare.yv = mainsquare.yv - 20
+      canSlide = true else north() end end
   elseif symbol == "SS" then
-    return function() south()
-      if isHospitable(mainsquare.x/10,mainsquare.y/10+2) then south() end end
+    return function()
+      if isHospitable(mainsquare.x/10,mainsquare.y/10+2) then score = score+2
+      mainsquare.yv = mainsquare.yv + 20
+      canSlide = true else south() end end
   elseif symbol == "EE" then
-    return function() east()
-      if isHospitable(mainsquare.x/10+2,mainsquare.y/10) then east() end end
+    return function()
+      if isHospitable(mainsquare.x/10+2,mainsquare.y/10) then score = score+2
+      mainsquare.xv = mainsquare.xv + 20
+      canSlide = true else east() end end
   elseif symbol == "WW" then
-    return function() west()
-      if isHospitable(mainsquare.x/10-2,mainsquare.y/10) then west() end end
+    return function()
+      if isHospitable(mainsquare.x/10-2,mainsquare.y/10) then score = score+2
+      mainsquare.xv = mainsquare.xv - 20
+      canSlide = true else west() end end
   end
   if symbol == "dN" then
     return dropNorth

@@ -35,17 +35,26 @@ function love.load()
   bgm:play()
 
   calibrateWindow()
-  hand = {card({"N","NN"}),card({"NN"}),card({"E"}),card({"W"})}
-  bank = {card({"E"}),card({"NN"}),card({"EE","W"}),card({"F"})}
+  hand = {card({"dN","EE","xS"}),card({"NN"}),card({"EE"}),card({"W","S"})}
+  bank = {card({"E","WW"}),card({"dN"}),card({"xW"}),card({"F"})}
   setupHandandBank()
   waitTimer = 0
   fiximageTimer = 0
-  mode = NORMAL
+  mode = MENU
+  turnCounter = 0
 end
 
 function love.draw()
   if mode == MENU then
     drawMenu()
+    return
+  end
+  if mode == TUTORIAL then
+    drawTutorial()
+    return
+  end
+  if mode == CREDITS then
+    drawCredits()
     return
   end
   drawOutline()
@@ -79,6 +88,9 @@ function love.draw()
 end
 
 function love.update()
+  if ((mode == NORMAL) and (isStill()) and (turnCounter == 20)) then
+    finishGame()
+  end
   if mainsquare.xv > 0 then
     mainsquare.x = mainsquare.x + 1
     mainsquare.xv = mainsquare.xv - 1
@@ -154,6 +166,10 @@ end
 function love.keypressed(key)
   if mode == MENU then
     handlePressInMenu(key)
+    return
+  end
+  if ((mode == TUTORIAL) or (mode == CREDITS)) then
+    mode = MENU
     return
   end
   if ((key == "q") and (mode == NORMAL)) then
