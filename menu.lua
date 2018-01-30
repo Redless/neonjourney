@@ -22,3 +22,11 @@ end
 function setupGame()
   --run when it's time to load the game
 end
+
+function drawTutorial()
+
+end
+
+function drawCredits()
+
+end

@@ -1,7 +1,7 @@
 matrix = {
 {0,0,0,0,0},
-{0,0,0,0,0},
-{0,0,0,0,0},
+{0,0,"N",0,0},
+{"gE",0,0,0,0},
 {0,0,0,"X",0},
 {0,0,0,0,0},
 }
@@ -21,26 +21,35 @@ function drawOutline()
 end
 
 function isHospitable(x,y)
+  print(x,y)
   return matrix[x] and matrix[x][y] and not (matrix[x][y] == "X")
 end
 
 function xNorth()
-  matrix[mainsquare.x/10][mainsquare.y/10] = "X"
+  if isHospitable(mainsquare.x/10,mainsquare.y/10-1) then
+    matrix[mainsquare.x/10][mainsquare.y/10] = "X"
+  end
   north()
 end
 
 function xSouth()
-  matrix[mainsquare.x/10][mainsquare.y/10] = "X"
+  if isHospitable(mainsquare.x/10,mainsquare.y/10+1) then
+    matrix[mainsquare.x/10][mainsquare.y/10] = "X"
+  end
   south()
 end
 
 function xEast()
-  matrix[mainsquare.x/10][mainsquare.y/10] = "X"
+  if isHospitable(mainsquare.x/10+1,mainsquare.y/10) then
+    matrix[mainsquare.x/10][mainsquare.y/10] = "X"
+  end
   east()
 end
 
 function xWest()
-  matrix[mainsquare.x/10][mainsquare.y/10] = "X"
+  if isHospitable(mainsquare.x/10-1,mainsquare.y/10) then
+    matrix[mainsquare.x/10][mainsquare.y/10] = "X"
+  end
   west()
 end
 
@@ -95,5 +104,31 @@ function drawFixer()
 end
 
 function drawTimer()
-  
+  love.graphics.setColor(0,0,0)
+  if turnCounter > 0 then
+    rectangle("fill",.2,.2,.6,.6)
+  end
+  if turnCounter > 5 then
+    rectangle("fill",9.2,.2,.6,.6)
+  end
+  if turnCounter > 10 then
+    rectangle("fill",9.2,9.2,.6,.6)
+  end
+  if turnCounter > 15 then
+    rectangle("fill",.2,9.2,.6,.6)
+  end
+  for i = 1,4 do
+    if turnCounter > 0+i then
+      rectangle("fill",(i-1)*2.1+.8,.2,2.1,.6)
+    end
+    if turnCounter > 5+i then
+      rectangle("fill",9.2,(i-1)*2.1+.8,.6,2.1)
+    end
+    if turnCounter > 10+i then
+      rectangle("fill",(4-i)*2.1+.8,9.2,2.1,.6)
+    end
+    if turnCounter > 15+i then
+      rectangle("fill",.2,(4-i)*2.1+.8,.6,2.1)
+    end
+  end
 end

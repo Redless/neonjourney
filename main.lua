@@ -20,8 +20,8 @@ function love.load()
   fixer = love.graphics.newImage("assets/fixer.png")
   sfixer = love.graphics.newImage("assets/sfixer.png")
   doubleNorth = love.graphics.newImage("assets/dnorth.png")
-  doubleEast = love.graphics.newImage("assets/dsouth.png")
-  doubleSouth = love.graphics.newImage("assets/deast.png")
+  doubleEast = love.graphics.newImage("assets/deast.png")
+  doubleSouth = love.graphics.newImage("assets/dsouth.png")
   doubleWest = love.graphics.newImage("assets/dwest.png")
   sdoubleNorth = love.graphics.newImage("assets/sdnorth.png")
   sdoubleEast = love.graphics.newImage("assets/sdsouth.png")
@@ -40,8 +40,8 @@ function love.load()
   setupHandandBank()
   waitTimer = 0
   fiximageTimer = 0
-  mode = MENU
-  turnCounter = 0
+  mode = NORMAL
+  turnCounter = 7
 end
 
 function love.draw()
@@ -79,6 +79,7 @@ function love.draw()
   for i =1,table.getn(discard) do
     drawCard(discard[i])
   end
+  drawTimer()
   drawFixer()
   love.graphics.setColor(0, 0, 0)
 	love.graphics.rectangle("fill", 0, 0, love.graphics.getWidth(), movedown)

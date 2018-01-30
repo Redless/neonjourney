@@ -5,7 +5,6 @@ card generation
 random generation (start of game)
 sound effects (maybe?)
 average score
-timer
 card trashing in different phases
 
 later:
