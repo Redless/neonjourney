@@ -1,11 +1,12 @@
 to do:
 
-menuscreen
-card generation
+game over
+game setup
 random generation (start of game)
-sound effects (maybe?)
 average score
 card trashing in different phases
+color change
+view hand and deck
 
 later:
 tutorial

@@ -11,7 +11,7 @@ CREDITS = 6
 cardOn = 1
 commandOn = 1
 
-function card(text)
+function card(text,spawngeneration)
   outCard = {text = text}
   outCard.x = -5
   outCard.y = 10.3
@@ -19,15 +19,12 @@ function card(text)
   outCard.yv = 0
   outCard.xa = 0
   outCard.ya = 0
+  outCard.born = spawngeneration
   outCard.active = {}
   for i =1,table.getn(text) do
     table.insert(outCard.active,true)
   end
   return outCard
-end
-
-function generateNewCard()
-  return card({"N","E"})
 end
 
 function setupHandandBank()
@@ -264,4 +261,104 @@ function executeAll()
     cardOn = 1
     commandOn = 1
   end
+end
+
+function generateNewCard(points)
+  unorderedOptions = {}
+  unorderedDroptions = {}
+  dropSpaces = 1
+  spaces = 4
+  fixerType = love.math.random(2) == 1
+  specialCount = 0
+  while ((fixerType) and (specialCount < 1) and (points >= 3) and (spaces > 0)) do
+    randvar = love.math.random(20)
+    if (randvar <= 8) then
+      table.insert(unorderedOptions,"F")
+      specialCount = specialCount + 1
+      points = points - 4
+      spaces = spaces - 1
+      dropSpaces = dropSpaces + 1
+    elseif ((randvar <= 10) and (points > 1)) then
+      table.insert(unorderedOptions,"double")
+      points = points - 3
+      spaces = spaces - 1
+      dropSpaces = dropSpaces + 1
+    else
+      table.insert(unorderedOptions,"move")
+      points = points - 2
+      spaces = spaces - 1
+      dropSpaces = dropSpaces + 1
+    end
+  end
+  blocktaken = false
+  while ((not fixerType) and (specialCount < 2) and (points >= 1) and (spaces > 0)) do
+    randvar = love.math.random(20)
+    if ((randvar <= 6) and (points < spaces*2) and (not blocktaken)) then
+      table.insert(unorderedOptions,"block")
+      specialCount = specialCount + 1
+      points = points + 1
+      spaces = spaces - 1
+      blocktaken = true
+    elseif ((randvar <= 8) and (points > 1)) then
+      table.insert(unorderedOptions,"double")
+      points = points - 3
+      spaces = spaces - 1
+      dropSpaces = dropSpaces + 1
+    elseif (randvar <= 12) then
+      table.insert(unorderedOptions,"move")
+      points = points - 2
+      spaces = spaces - 1
+      dropSpaces = dropSpaces + 1
+    elseif (dropSpaces > 0) then
+      table.insert(unorderedDroptions,"drop")
+      specialCount = specialCount + 1
+      points = points - 2
+      spaces = spaces - 1
+      dropSpaces = dropSpaces - 1
+    end
+  end
+  while ((spaces > 0) and (points > 0)) do
+    randvar = love.math.random(20)
+    if ((randvar <= 6) and (points > 1)) then
+      table.insert(unorderedOptions,"double")
+      points = points - 3
+      spaces = spaces - 1
+    else
+      table.insert(unorderedOptions,"move")
+      points = points - 2
+      spaces = spaces - 1
+    end
+  end
+  commandList = {}
+  for i = 1,table.getn(unorderedOptions) do
+    itemToInsert = table.remove(unorderedOptions,love.math.random(table.getn(unorderedOptions)))
+    table.insert(commandList,itemToInsert)
+  end
+  while (table.getn(unorderedDroptions) > 0) do
+    indexToInsert = love.math.random(table.getn(commandList)+1)
+    notblockedbefore = ((indexToInsert == 1) or not (commandList[indexToInsert-1] == "drop"))
+    notblockedafter = ((indexToInsert == table.getn(commandList)) or not ((commandList[indexToInsert] == "drop") or (commandList[indexToInsert] == "block")))
+    if (notblockedafter and notblockedbefore) then
+      table.insert(commandList, indexToInsert, table.remove(unorderedDroptions))
+    end
+  end
+  truecommands = {}
+  lookup = {{"N","S","E","W"},{"dN","dS","dE","dW"},{"NN","SS","EE","WW"},{"xN","xS","xE","xW"}}
+  for i = 1,table.getn(commandList) do
+    direction = love.math.random(4)
+    if (commandList[i] == "move") then
+      table.insert(truecommands,lookup[1][direction])
+    elseif (commandList[i] == "double") then
+      table.insert(truecommands,lookup[3][direction])
+    elseif (commandList[i] == "drop") then
+      table.insert(truecommands,lookup[2][direction])
+    elseif (commandList[i] == "block") then
+      table.insert(truecommands,lookup[4][direction])
+    elseif (commandList[i] == "F") then
+      table.insert(truecommands,"F")
+    else
+      print(commandList[i])
+    end
+  end
+  return card(truecommands,generation)
 end

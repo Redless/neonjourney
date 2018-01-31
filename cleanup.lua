@@ -9,9 +9,9 @@ function cleanup()
   end
   if not (indexSelected == 4) then
     table.remove(bank,4)
-    table.insert(bank,1,generateNewCard())
+    table.insert(bank,1,generateNewCard(3))
   end
-  table.insert(bank,1,generateNewCard())
+  table.insert(bank,1,generateNewCard(3))
   hand = {}
   waitTimer = 20
   mode = RESHUFFLE

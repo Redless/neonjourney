@@ -5,9 +5,17 @@ require("mainsquare")
 require("matrix")
 require("menu")
 
+totalScore = 0
+gamesPlayed = 1
+
 function love.load()
   menubg = love.graphics.newImage("assets/neonjourneylogo.png")
   love.graphics.setDefaultFilter("nearest","nearest")
+  mX = love.graphics.newImage("assets/mX.png")
+  mnorthArrow = love.graphics.newImage("assets/midarrown.png")
+  msouthArrow = love.graphics.newImage("assets/midarrows.png")
+  meastArrow = love.graphics.newImage("assets/midarrowe.png")
+  mwestArrow = love.graphics.newImage("assets/midarroww.png")
   northArrow = love.graphics.newImage("assets/north.png")
   southArrow = love.graphics.newImage("assets/south.png")
   eastArrow = love.graphics.newImage("assets/east.png")
@@ -24,9 +32,11 @@ function love.load()
   doubleSouth = love.graphics.newImage("assets/dsouth.png")
   doubleWest = love.graphics.newImage("assets/dwest.png")
   sdoubleNorth = love.graphics.newImage("assets/sdnorth.png")
-  sdoubleEast = love.graphics.newImage("assets/sdsouth.png")
-  sdoubleSouth = love.graphics.newImage("assets/sdeast.png")
+  sdoubleSouth = love.graphics.newImage("assets/sdsouth.png")
+  sdoubleEast = love.graphics.newImage("assets/sdeast.png")
   sdoubleWest = love.graphics.newImage("assets/sdwest.png")
+  tutorialimg = love.graphics.newImage("assets/tutorial.png")
+  creditsimg = love.graphics.newImage("assets/credits.png")
   digits = {}
   for i=0,9 do
     table.insert(digits,love.graphics.newImage("assets/"..i..".png"))
@@ -35,8 +45,8 @@ function love.load()
   bgm:play()
 
   calibrateWindow()
-  hand = {card({"dN","EE","xS"}),card({"NN"}),card({"EE"}),card({"W","S"})}
-  bank = {card({"E","WW"}),card({"dN"}),card({"xW"}),card({"F"})}
+  hand = {card({"xN","EE","xS"},0),card({"NN"},0),card({"EE"},0),card({"W","S"},0)}
+  bank = {card({"SS","EE","NN","WW"},0),card({"dN"},0),card({"xW"},0),card({"F"},0)}
   setupHandandBank()
   waitTimer = 0
   fiximageTimer = 0
@@ -58,8 +68,8 @@ function love.draw()
     return
   end
   drawOutline()
-  for i =1,5 do
-    for j =1,5 do
+  for i =1,7 do
+    for j =1,7 do
       drawTile(i,j)
     end
   end

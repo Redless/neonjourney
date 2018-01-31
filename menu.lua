@@ -24,9 +24,11 @@ function setupGame()
 end
 
 function drawTutorial()
-
+  love.graphics.setColor(255,255,255)
+  drawImage(tutorialimg,0,0,10,15)
 end
 
 function drawCredits()
-
+  love.graphics.setColor(255,255,255)
+  drawImage(creditsimg,0,0,10,10)
 end

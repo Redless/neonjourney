@@ -1,15 +1,36 @@
 matrix = {
-{0,0,0,0,0},
-{0,0,"N",0,0},
-{"gE",0,0,0,0},
-{0,0,0,"X",0},
-{0,0,0,0,0},
+{0,0,0,0,0,0,0},
+{0,0,"N",0,0,0,0},
+{"gE",0,0,0,0,0,0},
+{"X",0,0,0,0,0,0},
+{0,0,0,0,0,0,0},
+{0,0,0,0,0,0,0},
+{0,0,0,0,0,0,0},
 }
 
 function drawTile(x,y)
   if not (matrix[x][y] == 0) then
     love.graphics.setColor(sigcol("d"..matrix[x][y]))
-    drawImage(sigim(matrix[x][y]),(x-1)*8/5+1,(y-1)*8/5+1,1.6,1.6)
+    drawImage(sigtile(matrix[x][y]),(x-1)*1.2+.8,(y-1)*1.2+.8,1.2,1.2)
+  end
+end
+
+function sigtile(symbol)
+  print(symbol)
+  if ((symbol == "N") or (symbol == "gN")) then
+    return mnorthArrow
+  end
+  if ((symbol == "S") or (symbol == "gS")) then
+    return msouthArrow
+  end
+  if ((symbol == "E") or (symbol == "gE")) then
+    return meastArrow
+  end
+  if ((symbol == "W") or (symbol == "gW")) then
+    return mwestArrow
+  end
+  if ((symbol == "X")) then
+    return mX
   end
 end
 
@@ -17,7 +38,7 @@ function drawOutline()
   love.graphics.setColor(255,255,255)
   rectangle("fill",0,0,10,10)
   love.graphics.setColor(0,0,0)
-  rectangle("fill",1,1,8,8)
+  rectangle("fill",.8,.8,8.4,8.4)
 end
 
 function isHospitable(x,y)
@@ -106,29 +127,29 @@ end
 function drawTimer()
   love.graphics.setColor(0,0,0)
   if turnCounter > 0 then
-    rectangle("fill",.2,.2,.6,.6)
+    rectangle("fill",.2,.2,.4,.4)
   end
   if turnCounter > 5 then
-    rectangle("fill",9.2,.2,.6,.6)
+    rectangle("fill",9.4,.2,.4,.4)
   end
   if turnCounter > 10 then
-    rectangle("fill",9.2,9.2,.6,.6)
+    rectangle("fill",9.4,9.4,.4,.4)
   end
   if turnCounter > 15 then
-    rectangle("fill",.2,9.2,.6,.6)
+    rectangle("fill",.2,9.4,.4,.4)
   end
   for i = 1,4 do
     if turnCounter > 0+i then
-      rectangle("fill",(i-1)*2.1+.8,.2,2.1,.6)
+      rectangle("fill",(i-1)*2.2+.6,.2,2.2,.4)
     end
     if turnCounter > 5+i then
-      rectangle("fill",9.2,(i-1)*2.1+.8,.6,2.1)
+      rectangle("fill",9.4,(i-1)*2.2+.6,.4,2.2)
     end
     if turnCounter > 10+i then
-      rectangle("fill",(4-i)*2.1+.8,9.2,2.1,.6)
+      rectangle("fill",(4-i)*2.2+.6,9.4,2.2,.4)
     end
     if turnCounter > 15+i then
-      rectangle("fill",.2,(4-i)*2.1+.8,.6,2.1)
+      rectangle("fill",.2,(4-i)*2.2+.6,.4,2.2)
     end
   end
 end
