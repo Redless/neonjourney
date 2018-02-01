@@ -50,8 +50,8 @@ function love.load()
   setupHandandBank()
   waitTimer = 0
   fiximageTimer = 0
-  mode = NORMAL
-  turnCounter = 7
+  mode = MENU
+  turnCounter = 0
 end
 
 function love.draw()

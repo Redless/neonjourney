@@ -1,17 +1,10 @@
 to do:
 
 game over
-game setup
 random generation (start of game)
 average score
 card trashing in different phases
-color change
 view hand and deck
-
-later:
-tutorial
-ranking
-highscore
 
 
 
@@ -21,3 +14,15 @@ drop:2  20
 double:3  20
 block:-1  20
 fix:4  10
+
+histo:
+wanted deckbuilder+physical space
+
+
+design:
+info horizon: cards flowing in
+limited number of decisions: four per turn
+long arcs: deck
+long arcs: board
+Building is the way forward
+highscore + arcs: structured around losing and loss condition

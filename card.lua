@@ -291,7 +291,7 @@ function generateNewCard(points)
     end
   end
   blocktaken = false
-  while ((not fixerType) and (specialCount < 2) and (points >= 1) and (spaces > 0)) do
+  while ((not fixerType) and (specialCount < 2) and (points >= 1) and (spaces > 0) and (dropSpaces > 0)) do
     randvar = love.math.random(20)
     if ((randvar <= 6) and (points < spaces*2) and (not blocktaken)) then
       table.insert(unorderedOptions,"block")
@@ -335,11 +335,19 @@ function generateNewCard(points)
     table.insert(commandList,itemToInsert)
   end
   while (table.getn(unorderedDroptions) > 0) do
+    if (table.getn(commandList) == 0) then
+      table.insert(commandList,1,table.remove(unorderedOptions))
+    end
     indexToInsert = love.math.random(table.getn(commandList)+1)
-    notblockedbefore = ((indexToInsert == 1) or not (commandList[indexToInsert-1] == "drop"))
-    notblockedafter = ((indexToInsert == table.getn(commandList)) or not ((commandList[indexToInsert] == "drop") or (commandList[indexToInsert] == "block")))
-    if (notblockedafter and notblockedbefore) then
+    blockedbefore = (commandList[indexToInsert-1] == "drop")
+    blockedafter = (commandList[indexToInsert] == "drop") or (commandList[indexToInsert] == "block")
+    print(indexToInsert)
+    print("is the index")
+    if not (blockedafter or blockedbefore) then
       table.insert(commandList, indexToInsert, table.remove(unorderedDroptions))
+    end
+    for i = 1,4 do
+      print(commandList[i])
     end
   end
   truecommands = {}
@@ -357,6 +365,7 @@ function generateNewCard(points)
     elseif (commandList[i] == "F") then
       table.insert(truecommands,"F")
     else
+      print("REEEEEEEEEEEE!!!")
       print(commandList[i])
     end
   end

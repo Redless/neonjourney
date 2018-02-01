@@ -1,8 +1,8 @@
 matrix = {
 {0,0,0,0,0,0,0},
-{0,0,"N",0,0,0,0},
-{"gE",0,0,0,0,0,0},
-{"X",0,0,0,0,0,0},
+{0,0,0,0,0,0,0},
+{0,0,0,0,0,0,0},
+{0,0,0,0,0,0,0},
 {0,0,0,0,0,0,0},
 {0,0,0,0,0,0,0},
 {0,0,0,0,0,0,0},
@@ -121,7 +121,7 @@ end
 
 function drawFixer()
   love.graphics.setColor(230,230,150,fiximageTimer/20*255)
-  rectangle("fill",(mainsquare.x/10-2)*8/5+1,(mainsquare.y/10-2)*8/5+1,24/5,24/5)
+  rectangle("fill",(mainsquare.x/10-2)*1.2+.8,(mainsquare.y/10-2)*1.2+.8,3.6,3.6)
 end
 
 function drawTimer()

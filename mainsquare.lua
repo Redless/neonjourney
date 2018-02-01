@@ -14,7 +14,18 @@ end
 function drawMainSquare()
   love.graphics.setColor(200, 215, 200, 100)
   rectangle("fill",(mainsquare.x/10-1)*1.2+.8,(mainsquare.y/10-1)*1.2+.8,1.2,1.2)
-  love.graphics.setColor(200, 215, 200)
+  if score < 100 then
+    love.graphics.setColor(200, 215, 200)
+  end
+  if score >= 100 then
+    love.graphics.setColor(100,250,100)
+  end
+  if score >= 200 then
+    love.graphics.setColor(250, 100, 100)
+  end
+  if score >= 300 then
+    love.graphics.setColor(100, 100, 250)
+  end
   drawImage(digits[math.fmod(math.floor(score/10),10)+1],(mainsquare.x/10-1)*1.2+.8,(mainsquare.y/10-1)*1.2+.8,.5,1.2)
   drawImage(digits[math.fmod(score,10)+1],(mainsquare.x/10-.5)*1.2+.8+.1,(mainsquare.y/10-1)*1.2+.8,.5,1.2)
 end
