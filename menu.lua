@@ -1,16 +1,16 @@
 function drawMenu()
   love.graphics.setColor(250, 250, 250)
   drawImage(menubg,0,0,10,10)
-  if score < 100 then
+  if totalScore < 100 then
     love.graphics.setColor(200, 215, 200)
   end
-  if score >= 100 then
+  if totalScore >= 100 then
     love.graphics.setColor(100,250,100)
   end
-  if score >= 200 then
+  if totalScore >= 200 then
     love.graphics.setColor(250, 100, 100)
   end
-  if score >= 300 then
+  if totalScore >= 300 then
     love.graphics.setColor(100, 100, 250)
   end
   drawImage(digits[math.fmod(math.floor((totalScore/gamesPlayed)/10),10)+1],3.8,11,1,2.4)

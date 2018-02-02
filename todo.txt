@@ -1,8 +1,7 @@
 to do:
 
-game over
 random generation (start of game)
-card trashing in different phases
+trashzone
 view hand and deck
 
 

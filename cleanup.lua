@@ -1,6 +1,10 @@
 function cleanup()
   turnCounter = turnCounter + 1
-  table.insert(deck,hand[indexSelected])
+  if false then--(inTrashZone()) then
+
+  else
+    table.insert(deck,hand[indexSelected])
+  end
   table.insert(discard,table.remove(bank,indexSelected))
   for i = 1,4 do
     if not (i == indexSelected) then
@@ -9,9 +13,9 @@ function cleanup()
   end
   if not (indexSelected == 4) then
     table.remove(bank,4)
-    table.insert(bank,1,generateNewCard(3))
+    table.insert(bank,1,generateNewCard(3+math.floor(turnCounter/5)))
   end
-  table.insert(bank,1,generateNewCard(3))
+  table.insert(bank,1,generateNewCard(3+math.floor(turnCounter/5)))
   hand = {}
   waitTimer = 20
   mode = RESHUFFLE
