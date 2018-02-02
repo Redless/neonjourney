@@ -2,7 +2,6 @@ to do:
 
 game over
 random generation (start of game)
-average score
 card trashing in different phases
 view hand and deck
 

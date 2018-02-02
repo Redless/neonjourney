@@ -7,6 +7,7 @@ EXECUTING = 3
 RESHUFFLE = 4
 TUTORIAL = 5
 CREDITS = 6
+GAMEOVER = 7
 
 cardOn = 1
 commandOn = 1

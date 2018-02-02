@@ -13,8 +13,8 @@ function drawMenu()
   if score >= 300 then
     love.graphics.setColor(100, 100, 250)
   end
-  drawImage(digits[math.fmod(math.floor((score/gamesPlayed)/10),10)+1],3.8,11,1,2.4)
-  drawImage(digits[math.fmod(score/gamesPlayed,10)+1],5.2,11,1,2.4)
+  drawImage(digits[math.fmod(math.floor((totalScore/gamesPlayed)/10),10)+1],3.8,11,1,2.4)
+  drawImage(digits[math.fmod(totalScore/gamesPlayed,10)+1],5.2,11,1,2.4)
 end
 
 function handlePressInMenu(key)

@@ -29,5 +29,7 @@ function reshuffleIntoDeck()
 end
 
 function finishGame()
-  --called when the game is over
+  mode = MENU
+  totalScore = totalScore + score
+  gamesPlayed = gamesPlayed + 1
 end

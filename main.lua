@@ -70,10 +70,14 @@ function love.draw()
   drawOutline()
   for i =1,7 do
     for j =1,7 do
-      drawTile(i,j)
+      if not (mode == GAMEOVER) then
+        drawTile(i,j)
+      end
     end
   end
-  drawMainSquare()
+  if not (mode == GAMEOVER) then
+    drawMainSquare()
+  end
   drawDeck()
   if not (mode == RESHUFFLE) then
     for i =1,4 do
@@ -96,11 +100,27 @@ function love.draw()
 	love.graphics.rectangle("fill", 0, 0, moveside, love.graphics.getHeight())
 	love.graphics.rectangle("fill", love.graphics.getWidth()-moveside, 0, moveside, love.graphics.getHeight())
 	love.graphics.rectangle("fill", 0, love.graphics.getHeight()-movedown, love.graphics.getWidth(), movedown)
+  if (mode == GAMEOVER) then
+    if score < 100 then
+      love.graphics.setColor(200, 215, 200)
+    end
+    if score >= 100 then
+      love.graphics.setColor(100,250,100)
+    end
+    if score >= 200 then
+      love.graphics.setColor(250, 100, 100)
+    end
+    if score >= 300 then
+      love.graphics.setColor(100, 100, 250)
+    end
+    drawImage(digits[math.fmod(math.floor((score/gamesPlayed)/10),10)+1],.8,.8,3.5,8.4)
+    drawImage(digits[math.fmod(score/gamesPlayed,10)+1],5.7,.8,3.5,8.4)
+  end
 end
 
 function love.update()
   if ((mode == NORMAL) and (isStill()) and (turnCounter == 20)) then
-    finishGame()
+    mode = GAMEOVER
   end
   if mainsquare.xv > 0 then
     mainsquare.x = mainsquare.x + 1
@@ -175,6 +195,10 @@ function love.resize(w, h)
 end
 
 function love.keypressed(key)
+  if (mode == GAMEOVER) then
+    finishGame()
+    return
+  end
   if mode == MENU then
     handlePressInMenu(key)
     return
