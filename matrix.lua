@@ -46,7 +46,7 @@ function drawOutline()
     rectangle("fill",.8,.8,1.2*4,1.2*3)
   end
   if (trashzone == 2) then
-    rectangle("fill",.8+1.2*.4,.8,1.2*3,1.2*4)
+    rectangle("fill",.8,.8+1.2*3,1.2*3,1.2*4)
   end
   if (trashzone == 3) then
     rectangle("fill",.8,.8+1.2*3,1.2*3,1.2*4)

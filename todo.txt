@@ -22,3 +22,4 @@ highscore + arcs: structured around losing and loss condition
 
 badness:
 cards don't self-modify
+four choices... is too few.

@@ -56,7 +56,7 @@ function setupGame()
   setupHandandBank()
   waitTimer = 0
   fiximageTimer = 0
-  trashzone = 1
+  trashzone = 2
   trashPrimed = false
   presets = {"N","S","E","W"}
   randx = love.math.random(7)
