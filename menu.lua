@@ -58,6 +58,23 @@ function setupGame()
   fiximageTimer = 0
   trashzone = 1
   trashPrimed = false
+  presets = {"N","S","E","W"}
+  randx = love.math.random(7)
+  randy = love.math.random(7)
+  item = love.math.random(4)
+  matrix[randx][randy] = presets[item]
+  randx = love.math.random(7)
+  randy = love.math.random(7)
+  item = love.math.random(4)
+  matrix[randx][randy] = presets[item]
+  randx = love.math.random(7)
+  randy = love.math.random(7)
+  item = love.math.random(4)
+  matrix[randx][randy] = "g"..presets[item]
+  randx = love.math.random(7)
+  randy = love.math.random(7)
+  item = love.math.random(4)
+  matrix[randx][randy] = "X"
 end
 
 function drawTutorial()

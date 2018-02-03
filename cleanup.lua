@@ -2,7 +2,7 @@ function cleanup()
   turnCounter = turnCounter + 1
   if trashPrimed then
     trashPrimed = false
-    randotrash = math.random(3)
+    randotrash = love.math.random(3)
     if not (randotrash < trashzone) then
       randotrash = randotrash + 1
     end

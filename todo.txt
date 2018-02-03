@@ -1,6 +1,5 @@
 to do:
 
-saving
 
 values
 move:2  30
@@ -20,3 +19,6 @@ long arcs: deck
 long arcs: board
 Building is the way forward
 highscore + arcs: structured around losing and loss condition
+
+badness:
+cards don't self-modify
