@@ -54,6 +54,22 @@ function drawOutline()
   end
 end
 
+function inTrashZone()
+  if ((trashzone == 1) and (mainsquare.x/10 <= 4) and (mainsquare.y/10 <= 3)) then
+    return true
+  end
+  if ((trashzone == 2) and (mainsquare.x/10 > 4) and (mainsquare.y/10 <= 4)) then
+    return true
+  end
+  if ((trashzone == 3) and (mainsquare.x/10 <= 3) and (mainsquare.y/10 >= 4)) then
+    return true
+  end
+  if ((trashzone == 4) and (mainsquare.x/10 >= 4) and (mainsquare.y/10 > 4)) then
+    return true
+  end
+  return false
+end
+
 function isHospitable(x,y)
   print(x,y)
   return matrix[x] and matrix[x][y] and not (matrix[x][y] == "X")

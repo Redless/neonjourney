@@ -1,9 +1,14 @@
 function cleanup()
   turnCounter = turnCounter + 1
-  if false then--(inTrashZone()) then
-
+  if trashPrimed then
+    trashPrimed = false
+    randotrash = math.random(3)
+    if not (randotrash < trashzone) then
+      randotrash = randotrash + 1
+    end
+    trashzone = randotrash
   else
-    table.insert(deck,hand[indexSelected])
+      table.insert(deck,hand[indexSelected])
   end
   table.insert(discard,table.remove(bank,indexSelected))
   for i = 1,4 do

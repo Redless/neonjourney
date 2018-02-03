@@ -1,9 +1,6 @@
 to do:
 
 saving
-trashzone
-
-
 
 values
 move:2  30

@@ -57,6 +57,7 @@ function setupGame()
   waitTimer = 0
   fiximageTimer = 0
   trashzone = 1
+  trashPrimed = false
 end
 
 function drawTutorial()

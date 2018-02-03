@@ -129,6 +129,8 @@ function love.draw()
 end
 
 function love.update()
+  --print(trashzone)
+  --print(inTrashZone())
   if ((mode == NORMAL) and (isStill()) and (turnCounter == 20)) then
     mode = GAMEOVER
   end
