@@ -40,6 +40,9 @@ function drawOutline()
   love.graphics.setColor(0,0,0)
   rectangle("fill",.8,.8,8.4,8.4)
   love.graphics.setColor(100,150,100)
+  if (mode == GAMEOVER) then
+    love.graphics.setColor(0, 0, 0)
+  end
   if (trashzone == 1) then
     rectangle("fill",.8,.8,1.2*4,1.2*3)
   end

@@ -69,3 +69,17 @@ function drawCredits()
   love.graphics.setColor(255,255,255)
   drawImage(creditsimg,0,0,10,10)
 end
+
+function loadFile()
+  if not love.filesystem.isFile('saves.txt') then
+    love.filesystem.write('saves.txt','0v1')
+  end
+  j = 1
+  saveFiles = {}
+  for i in string.gmatch(love.filesystem.read('saves.txt'),"%A+") do
+    saveFiles[j] = tonumber(i)
+    j = j + 1
+  end
+  totalScore = saveFiles[1]
+  gamesPlayed = saveFiles[2]
+end

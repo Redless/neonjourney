@@ -9,6 +9,7 @@ totalScore = 0
 gamesPlayed = 1
 
 function love.load()
+  loadFile()
   menubg = love.graphics.newImage("assets/neonjourneylogo.png")
   love.graphics.setDefaultFilter("nearest","nearest")
   mX = love.graphics.newImage("assets/mX.png")
@@ -234,4 +235,8 @@ function love.keypressed(key)
   if ((key == "space") and (mode == NORMAL)) then
     executeAll()
   end
+end
+
+function love.quit()
+  love.filesystem.write('saves.txt',totalScore..'v'..gamesPlayed)
 end
