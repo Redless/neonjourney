@@ -93,6 +93,29 @@ function drawCard(cardToDraw)
   end
 end
 
+function drawCardSomewhere(cardToDraw,i)
+  xtouse = .4 + 2.4*(math.fmod(i-1,4))
+  ytouse = .4 + 2.4*math.floor((i-1)/4)
+  love.graphics.setColor(200,200,215)
+  rectangle("fill",xtouse,ytouse,2,2)
+  love.graphics.setColor(0, 0, 0)
+  rectangle("fill",xtouse+.1,ytouse+.1,1.8,1.8)
+  love.graphics.setColor(200,200,215)
+  if table.getn(cardToDraw.text) == 1 then
+    love.graphics.setColor(sigcol(cardToDraw.text[1]))
+    if cardToDraw.active[1] then
+      drawImage(sigim(cardToDraw.text[1]),xtouse+.2,ytouse+.2,1.6,1.6)
+    end
+  else
+    for i = 1,table.getn(cardToDraw.text) do
+      if cardToDraw.active[i] then
+        love.graphics.setColor(sigcol(cardToDraw.text[i]))
+        drawImage(ssigim(cardToDraw.text[i]),xtouse+.2+math.fmod(i+1,2)*.9,ytouse+.2+math.floor((i-1)/2)*.9,.7,.7)
+      end
+    end
+  end
+end
+
 function sigcol(symbol)
   if ((symbol == "dS") or (symbol == "dW") or (symbol == "dE") or (symbol == "dN") or (symbol == "dN")) then
     return 100, 250, 215
@@ -342,13 +365,8 @@ function generateNewCard(points)
     indexToInsert = love.math.random(table.getn(commandList)+1)
     blockedbefore = (commandList[indexToInsert-1] == "drop")
     blockedafter = (commandList[indexToInsert] == "drop") or (commandList[indexToInsert] == "block")
-    print(indexToInsert)
-    print("is the index")
     if not (blockedafter or blockedbefore) then
       table.insert(commandList, indexToInsert, table.remove(unorderedDroptions))
-    end
-    for i = 1,4 do
-      print(commandList[i])
     end
   end
   truecommands = {}

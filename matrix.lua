@@ -39,6 +39,19 @@ function drawOutline()
   rectangle("fill",0,0,10,10)
   love.graphics.setColor(0,0,0)
   rectangle("fill",.8,.8,8.4,8.4)
+  love.graphics.setColor(100,150,100)
+  if (trashzone == 1) then
+    rectangle("fill",.8,.8,1.2*4,1.2*3)
+  end
+  if (trashzone == 2) then
+    rectangle("fill",.8+1.2*.4,.8,1.2*3,1.2*4)
+  end
+  if (trashzone == 3) then
+    rectangle("fill",.8,.8+1.2*3,1.2*3,1.2*4)
+  end
+  if (trashzone == 4) then
+    rectangle("fill",.8+1.2*3,.8+1.2*4,1.2*4,1.2*3)
+  end
 end
 
 function isHospitable(x,y)

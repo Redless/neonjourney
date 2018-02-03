@@ -115,6 +115,16 @@ function love.draw()
     end
     drawImage(digits[math.fmod(math.floor((score/gamesPlayed)/10),10)+1],.8,.8,3.5,8.4)
     drawImage(digits[math.fmod(score/gamesPlayed,10)+1],5.7,.8,3.5,8.4)
+    return
+  end
+  if (love.keyboard.isDown("a")) then
+    for i =1,table.getn(deck) do
+      drawCardSomewhere(deck[i],i)
+    end
+  elseif (love.keyboard.isDown("s")) then
+    for i =1,table.getn(discard) do
+      drawCardSomewhere(discard[i],i)
+    end
   end
 end
 

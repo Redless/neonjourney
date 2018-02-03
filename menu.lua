@@ -14,7 +14,7 @@ function drawMenu()
     love.graphics.setColor(100, 100, 250)
   end
   drawImage(digits[math.fmod(math.floor((totalScore/gamesPlayed)/10),10)+1],3.8,11,1,2.4)
-  drawImage(digits[math.fmod(totalScore/gamesPlayed,10)+1],5.2,11,1,2.4)
+  drawImage(digits[math.floor(math.fmod(math.floor(totalScore)/gamesPlayed,10)+1)],5.2,11,1,2.4)
 end
 
 function handlePressInMenu(key)
@@ -56,6 +56,7 @@ function setupGame()
   setupHandandBank()
   waitTimer = 0
   fiximageTimer = 0
+  trashzone = 1
 end
 
 function drawTutorial()

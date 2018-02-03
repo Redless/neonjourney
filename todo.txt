@@ -1,8 +1,7 @@
 to do:
 
-random generation (start of game)
+saving
 trashzone
-view hand and deck
 
 
 
