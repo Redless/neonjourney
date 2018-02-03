@@ -16,7 +16,6 @@ function drawTile(x,y)
 end
 
 function sigtile(symbol)
-  print(symbol)
   if ((symbol == "N") or (symbol == "gN")) then
     return mnorthArrow
   end
@@ -74,7 +73,6 @@ function inTrashZone()
 end
 
 function isHospitable(x,y)
-  print(x,y)
   return matrix[x] and matrix[x][y] and not (matrix[x][y] == "X")
 end
 
