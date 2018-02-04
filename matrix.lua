@@ -76,7 +76,7 @@ function predictlocation()
       table.insert(commandQ,1,cardToAdd.text[j])
     end
   end
-  while ((table.getn(commandQ) > 0) or not (clonedmatrix[curx][cury] == 0)) do
+  while ((table.getn(commandQ) > 0) or (not (clonedmatrix[curx][cury] == 0) and issliding)) do
     if ((clonedmatrix[curx][cury] == 0) or not issliding) then
       commandtoDo = table.remove(commandQ)
       if (commandtoDo == "xN") then
