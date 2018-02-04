@@ -38,22 +38,201 @@ function drawOutline()
   rectangle("fill",0,0,10,10)
   love.graphics.setColor(0,0,0)
   rectangle("fill",.8,.8,8.4,8.4)
-  love.graphics.setColor(100,150,100)
+  love.graphics.setColor(210,125,220)
   if (mode == GAMEOVER) then
     love.graphics.setColor(0, 0, 0)
   end
   if (trashzone == 1) then
     rectangle("fill",.8,.8,1.2*4,1.2*3)
   end
-  if (trashzone == 2) then
-    rectangle("fill",.8,.8+1.2*3,1.2*3,1.2*4)
-  end
   if (trashzone == 3) then
+    rectangle("fill",.8+1.2*4,.8,1.2*3,1.2*4)
+  end
+  if (trashzone == 2) then
     rectangle("fill",.8,.8+1.2*3,1.2*3,1.2*4)
   end
   if (trashzone == 4) then
     rectangle("fill",.8+1.2*3,.8+1.2*4,1.2*4,1.2*3)
   end
+end
+
+function predictlocation()
+  curx = mainsquare.x/10
+  cury = mainsquare.y/10
+  clonedmatrix = {}
+  for i =1,7 do
+    table.insert(clonedmatrix,{})
+    for j = 1,7 do
+      table.insert(clonedmatrix[i],matrix[i][j])
+    end
+  end
+  commandQ = {}
+  for i =1,4 do
+    cardToAdd = hand[i]
+    if (i == indexSelected) then
+      cardToAdd = bank[i]
+    end
+    for j =1,table.getn(cardToAdd.text) do
+      table.insert(commandQ,1,cardToAdd.text[j])
+    end
+  end
+  while ((table.getn(commandQ) > 0) or not (clonedmatrix[curx][cury] == 0)) do
+    if ((clonedmatrix[curx][cury] == 0) or not issliding) then
+      commandtoDo = table.remove(commandQ)
+      if (commandtoDo == "xN") then
+        if ((clonedmatrix[curx][cury-1]) and not (clonedmatrix[curx][cury-1] == "X")) then
+          clonedmatrix[curx][cury] = "X"
+          commandtoDo = "N"
+          issliding = true
+        end
+      elseif (commandtoDo == "xS") then
+        if ((clonedmatrix[curx][cury+1]) and not (clonedmatrix[curx][cury+1] == "X")) then
+          clonedmatrix[curx][cury] = "X"
+          commandtoDo = "S"
+          issliding = true
+        end
+      elseif (commandtoDo == "xW") then
+        if ((clonedmatrix[curx-1]) and ((clonedmatrix[curx-1][cury])) and not (clonedmatrix[curx-1][cury] == "X")) then
+          clonedmatrix[curx][cury] = "X"
+          commandtoDo = "W"
+          issliding = true
+        end
+      elseif (commandtoDo == "xE") then
+        if ((clonedmatrix[curx+1]) and (clonedmatrix[curx+1][cury]) and not (clonedmatrix[curx+1][cury] == "X")) then
+          clonedmatrix[curx][cury] = "X"
+          commandtoDo = "E"
+          issliding = true
+        end
+      end
+      if (commandtoDo == "NN") then
+        if ((clonedmatrix[curx][cury-2]) and not (clonedmatrix[curx][cury-2] == "X")) then
+          cury = math.max(cury-2,1)
+          issliding = true
+        else
+          commandtoDo = "N"
+        end
+      elseif (commandtoDo == "SS") then
+        if ((clonedmatrix[curx][cury+2]) and not (clonedmatrix[curx][cury+2] == "X")) then
+          cury = math.min(cury+2,7)
+          issliding = true
+        else
+          commandtoDo = "S"
+        end
+      elseif (commandtoDo == "WW") then
+        if ((clonedmatrix[curx-2]) and ((clonedmatrix[curx-2][cury])) and not (clonedmatrix[curx-2][cury] == "X")) then
+          curx = math.max(curx-2,1)
+          issliding = true
+        else
+          commandtoDo = "W"
+        end
+      elseif (commandtoDo == "EE") then
+        if ((clonedmatrix[curx+2]) and (clonedmatrix[curx+2][cury]) and not (clonedmatrix[curx+2][cury] == "X")) then
+          curx = math.min(curx+2,7)
+          issliding = true
+        else
+          commandtoDo = "E"
+        end
+      end
+      if (commandtoDo == "N") then
+        if ((clonedmatrix[curx][cury-1]) and not (clonedmatrix[curx][cury-1] == "X")) then
+          cury = math.max(cury-1,1)
+          issliding = true
+        end
+      elseif (commandtoDo == "S") then
+        if ((clonedmatrix[curx][cury+1]) and not (clonedmatrix[curx][cury+1] == "X")) then
+          cury = math.min(cury+1,7)
+          issliding = true
+        end
+      elseif (commandtoDo == "W") then
+        if ((clonedmatrix[curx-1]) and ((clonedmatrix[curx-1][cury])) and not (clonedmatrix[curx-1][cury] == "X")) then
+          curx = math.max(curx-1,1)
+          issliding = true
+        end
+      elseif (commandtoDo == "E") then
+        if ((clonedmatrix[curx+1]) and (clonedmatrix[curx+1][cury]) and not (clonedmatrix[curx+1][cury] == "X")) then
+          curx = math.min(curx+1,7)
+          issliding = true
+        end
+      end
+      if (commandtoDo == "dN") then
+        clonedmatrix[curx][cury] = "N"
+        issliding = false
+      elseif (commandtoDo == "dS") then
+        clonedmatrix[curx][cury] = "S"
+        issliding = false
+      elseif (commandtoDo == "dE") then
+        clonedmatrix[curx][cury] = "E"
+        issliding = false
+      elseif (commandtoDo == "dW") then
+        clonedmatrix[curx][cury] = "W"
+        issliding = false
+      end
+      if (commandtoDo == "F") then
+        for xadj = 1,3 do
+          for yadj = 1,3 do
+            if (clonedmatrix[curx-2+xadj] and clonedmatrix[curx-2+xadj][cury-2+yadj]) then
+              if (clonedmatrix[curx-2+xadj][cury-2+yadj] == "N") then
+                clonedmatrix[curx-2+xadj][cury-2+yadj] = "gW"
+              elseif (clonedmatrix[curx-2+xadj][cury-2+yadj] == "W") then
+                clonedmatrix[curx-2+xadj][cury-2+yadj] = "gS"
+              elseif (clonedmatrix[curx-2+xadj][cury-2+yadj] == "E") then
+                clonedmatrix[curx-2+xadj][cury-2+yadj] = "gN"
+              elseif (clonedmatrix[curx-2+xadj][cury-2+yadj] == "S") then
+                clonedmatrix[curx-2+xadj][cury-2+yadj] = "gE"
+              elseif (clonedmatrix[curx-2+xadj][cury-2+yadj] == "X") then
+                clonedmatrix[curx-2+xadj][cury-2+yadj] = 0
+              end
+            end
+          end
+        end
+      end
+    else
+      commandtoDo = clonedmatrix[curx][cury]
+      if (commandtoDo == "N") then
+        clonedmatrix[curx][cury] = 0
+        if (clonedmatrix[curx] and (clonedmatrix[curx][cury-1]) and not (clonedmatrix[curx][cury-1] == "X")) then
+          cury = math.max(cury-1,1)
+        end
+      elseif (commandtoDo == "S") then
+        clonedmatrix[curx][cury] = 0
+        if (clonedmatrix[curx] and (clonedmatrix[curx][cury+1]) and not (clonedmatrix[curx][cury+1] == "X")) then
+          cury = math.min(cury+1,7)
+        end
+      elseif (commandtoDo == "W") then
+        clonedmatrix[curx][cury] = 0
+        if ((clonedmatrix[curx-1]) and ((clonedmatrix[curx-1][cury])) and not (clonedmatrix[curx-1][cury] == "X")) then
+          curx = math.max(curx-1,1)
+        end
+      elseif (commandtoDo == "E") then
+        clonedmatrix[curx][cury] = 0
+        if ((clonedmatrix[curx+1]) and (clonedmatrix[curx+1][cury]) and not (clonedmatrix[curx+1][cury] == "X")) then
+          curx = math.min(curx+1,7)
+        end
+      end
+      if (commandtoDo == "gN") then
+        clonedmatrix[curx][cury] = "N"
+        if (not(clonedmatrix[curx][cury-1]) and not (clonedmatrix[curx][cury-1] == "X")) then
+          cury = math.max(cury-1,1)
+        end
+      elseif (commandtoDo == "gS") then
+        clonedmatrix[curx][cury] = "S"
+        if (not(clonedmatrix[curx][cury+1]) and not (clonedmatrix[curx][cury+1] == "X")) then
+          cury = math.min(cury+1,7)
+        end
+      elseif (commandtoDo == "gW") then
+        clonedmatrix[curx][cury] = "W"
+        if ((clonedmatrix[curx-1]) and ((clonedmatrix[curx-1][cury])) and not (clonedmatrix[curx-1][cury] == "X")) then
+          curx = math.max(curx-1,1)
+        end
+      elseif (commandtoDo == "gE") then
+        clonedmatrix[curx][cury] = "E"
+        if ((clonedmatrix[curx+1]) and (clonedmatrix[curx+1][cury]) and not (clonedmatrix[curx+1][cury] == "X")) then
+          curx = math.min(curx+1,7)
+        end
+      end
+    end
+  end
+  return curx, cury
 end
 
 function inTrashZone()

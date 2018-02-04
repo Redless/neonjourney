@@ -114,8 +114,8 @@ function love.draw()
     if score >= 300 then
       love.graphics.setColor(100, 100, 250)
     end
-    drawImage(digits[math.fmod(math.floor((score/gamesPlayed)/10),10)+1],.8,.8,3.5,8.4)
-    drawImage(digits[math.fmod(score/gamesPlayed,10)+1],5.7,.8,3.5,8.4)
+    drawImage(digits[math.fmod(math.floor((score)/10),10)+1],.8,.8,3.5,8.4)
+    drawImage(digits[math.fmod(score,10)+1],5.7,.8,3.5,8.4)
     return
   end
   if (love.keyboard.isDown("a")) then
@@ -126,6 +126,11 @@ function love.draw()
     for i =1,table.getn(discard) do
       drawCardSomewhere(discard[i],i)
     end
+  end
+  if ((mode==NORMAL) and isStill()) then
+    love.graphics.setColor(230, 200, 100, alpha)
+    predx, predy = predictlocation()
+    rectangle("fill",-.1+predx*1.2,-.1+predy*1.2,.6,.6)
   end
 end
 
