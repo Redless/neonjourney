@@ -1,0 +1,1 @@
+I made this game in mid-February 2018 in 1 week with the LOVE2D framework. I'm extremely happy with how the game turned out, especially given the time constraint. Due to that time constraint, I didn't do any rewriting of code and so have some super janky organizational choices. Even so, I feel that the game well showcases my coding skills.
